@@ -1,0 +1,3 @@
+const generateManager = manager => {
+    return ``
+}
