@@ -18,7 +18,7 @@ const addManager = () => {
     return inquirer.prompt ([
         {
             type: 'input',
-            name: 'managerName',
+            name: 'name',
             message: 'What is manager name?',
             // Validate input to make sure a title is entered (same for all following prompts)
             validate: input => {
@@ -32,7 +32,7 @@ const addManager = () => {
         },
         {
             type: 'input',
-            name: 'managerId',
+            name: 'id',
             message: 'Please enter manager id.',
             validate: input => {
                 if (input==="") {
@@ -45,7 +45,7 @@ const addManager = () => {
         },
         {
             type: 'input',
-            name: 'managerEmail',
+            name: 'email',
             message: 'What is the manager email?',
             validate: input => {
                 if (input==="") {
@@ -158,7 +158,7 @@ const addNewEmployee = () => {
             choices: ['Yes', 'No'],
         }
     ]).then(employeeInformation => {
-        const {position, name, id, email, school, github} = employeeInformation; //we need to set this information within this segment
+        const {position, name, id, email, school, github, addAnotherEmployee} = employeeInformation; //we need to set this information within this segment
 
         var newEmployee;
 
