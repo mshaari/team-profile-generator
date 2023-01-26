@@ -81,7 +81,7 @@ const addNewEmployee = () => {
         {
             type: 'list',
             name: 'position',
-            message: 'What position does this new employee hold?',
+            message: `Let's add a new employee. What position does this new employee hold?`,
             choices: ['Intern', 'Engineer'],
         },
         {

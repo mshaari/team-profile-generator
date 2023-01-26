@@ -3,7 +3,7 @@ const generateManager = manager => {
         <div class="card col-3 m-2 p-0">
             <div class="card-header">
             Name: ${manager.getName()} <br>
-            <b>👨‍💼${manager.getRole()} </b>
+            <b>👨‍💼 ${manager.getRole()} </b>
             </div>
             <ul class="list-group list-group-flush">
             <li class="list-group-item">ID: ${manager.getId()}</li>
@@ -19,7 +19,7 @@ const generateEngineer = engineer => {
         <div class="card col-3 m-2 p-0">
             <div class="card-header">
             Name: ${engineer.getName()} <br>
-            <b>👩‍💻${engineer.getRole()} </b>
+            <b>👩‍💻 ${engineer.getRole()} </b>
             </div>
             <ul class="list-group list-group-flush">
             <li class="list-group-item">ID: ${engineer.getId()}</li>
@@ -35,7 +35,7 @@ const generateIntern = intern => {
         <div class="card col-3 m-2 p-0">
             <div class="card-header">
             Name: ${intern.getName()} <br>
-            <b>🙎‍♂️${intern.getRole()} </b>
+            <b>🙎‍♂️ ${intern.getRole()} </b>
             </div>
             <ul class="list-group list-group-flush">
             <li class="list-group-item">ID: ${intern.getId()}</li>
@@ -99,7 +99,7 @@ const generateTeamHTML = teamMemberCards => {
         </head>
 
         <body>
-            <h1 class="text-center">Our Company's Team</h1>
+            <h1 class="text-center m-3">Our Company's Team</h1>
             <div class="row d-flex justify-content-center p-3">
                 ${teamMemberCards}
             </div>
