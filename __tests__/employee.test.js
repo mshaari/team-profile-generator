@@ -1,4 +1,7 @@
+// Link to employee class
 const Employee = require("../lib/employee");
+
+// Below are a number of tests for each of the Employee class' purposes/uses. Instead of adding comments, please reference the string to understand each test's purpose (for example, 'Can set id', 'Can retrieve employee id', etc. ). 
 
 test('Can create employee class', () => {
     const employee = new Employee();
@@ -8,13 +11,13 @@ test('Can create employee class', () => {
 test('Can set name on employee class', () => {
     const name = 'Michael';
     const employee = new Employee(name);
-    expect(employee.name).toBe(name); //we want the name that we put in to be the same that is output
+    expect(employee.name).toBe(name); 
 })
 
 test('Can set id on employee class', () => {
     const name = 'Michael';
     const id = '1';
-    const employee = new Employee(name, id); //we keep name in here so we build on it
+    const employee = new Employee(name, id); 
     expect(employee.id).toBe(id); 
 })
 

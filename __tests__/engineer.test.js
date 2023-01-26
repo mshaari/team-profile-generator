@@ -1,4 +1,7 @@
+// Link to Engineer class
 const Engineer = require("../lib/engineer");
+
+// Below are a number of tests for each of the Engineer class' purposes/uses. Instead of adding comments, please reference the string to understand each test's purpose (for example, 'Can set id', 'Can retrieve engineer id', etc. ). The main difference for engineer is that it also asks for the GitHub while the others don't
 
 test('Can create engineer class', () => {
     const engineer = new Engineer();
@@ -8,13 +11,13 @@ test('Can create engineer class', () => {
 test('Can set name on engineer class', () => {
     const name = 'Michael';
     const engineer = new Engineer(name);
-    expect(engineer.name).toBe(name); //we want the name that we put in to be the same that is output
+    expect(engineer.name).toBe(name); 
 })
 
 test('Can set id on engineer class', () => {
     const name = 'Michael';
     const id = '1';
-    const engineer = new Engineer(name, id); //we keep name in here so we build on it
+    const engineer = new Engineer(name, id); 
     expect(engineer.id).toBe(id); 
 })
 

@@ -1,26 +1,27 @@
-// node modules 
+// Node modules
 const fs = require('fs'); 
 const inquirer = require('inquirer');
 
-// import the team profile classes
+// Team profile classes (employee is not here since it is not directly used, but rather as a parent class for the three classes below)
 const Manager = require('./lib/manager.js');
 const Engineer = require('./lib/engineer.js');
 const Intern = require('./lib/intern.js')
 
-// import generateHTML to create page
+// Import generateHTML to create page
 const generateHTML = require('./src/generateHTML.js');
 const { default: generate } = require('@babel/generator'); //WHAT IS THIS?? IT WAS AUTOMATICALLY ADDED
 
-// declare an empty array for the team
+// Declare an empty array for the team members
 const teamMembers = [];
 
+// addManager function which is what uses inquirer to ask for the manager's information
 const addManager = () => {
     return inquirer.prompt ([
         {
             type: 'input',
             name: 'name',
             message: 'What is manager name?',
-            // Validate input to make sure a title is entered (same for all following prompts)
+            // Validate input to make sure an input is entered (same for all following prompts)
             validate: input => {
                 if (input==="") {
                     console.log('You need to enter a manager name to continue!');
@@ -62,20 +63,21 @@ const addManager = () => {
             message: 'Please enter manager office number.',
             validate: input => {
                 if (input==="") {
-                    console.log('You need to enter office number to continue!');
+                    console.log('You need to enter an office number to continue!');
                     return false;
                 } else {
                     return true;
                 }
             }
         },
-    ]).then(managerInformation => { //process the information on the manager
-        const {name, id, email, officeNumber} = managerInformation; //we need to set this information within this segment
-        const manager = new Manager(name, id, email, officeNumber);  // uses the manager class to create a new object with the right information
-        teamMembers.push(manager); //adds this object to the array of team members
+    ]).then(managerInformation => { // After (hence the .then) the user inputs information, then process the manager's information 
+        const {name, id, email, officeNumber} = managerInformation; // Set the information from above (name, id, email, officeNumber) = managerInformation
+        const manager = new Manager(name, id, email, officeNumber);  // Create a new object ('manager') using the Manager class to create a new object with the inputted information
+        teamMembers.push(manager); // Add this object to the array of team members
     }) 
 };
 
+// addNewEmployee function uses inquirer for adding a new employee (aside from the manager, so either an engineer or intern)
 const addNewEmployee = () => {
     return inquirer.prompt ([
         {
@@ -127,7 +129,7 @@ const addNewEmployee = () => {
             type: 'input',
             name: 'school',
             message: 'What is the school of the intern?',
-            when: (input) => input.position === 'Intern',
+            when: (input) => input.position === 'Intern', // Use 'when:' to only ask for the school of the intern if the input.position (so the new employee's position) is an intern, not an engineer
             validate: input => {
                 if (input==="") {
                     console.log('You need to enter a school name to continue!');
@@ -141,7 +143,7 @@ const addNewEmployee = () => {
             type: 'input',
             name: 'github',
             message: 'What is the engineer GitHub username?',
-            when: (input) => input.position === 'Engineer',
+            when: (input) => input.position === 'Engineer', // Use 'when:' to only ask for the GitHub of the engineer if the input.position (so the new employee's position) is an engineer, not an intern
             validate: input => {
                 if (input==="") {
                     console.log('You need to enter a GitHub username to continue!');
@@ -151,46 +153,58 @@ const addNewEmployee = () => {
                 }
             }
         },
-        {
+
+        // We want to ask if they want to add another employee or not (since only two employees including the manager are required)
+        { 
             type: 'list',
             name: 'addAnotherEmployee',
-            message:  'Would you like to add another employee or have you finished creating your team?', 
+            message:  'Would you like to add another employee (select yes) or have you finished creating your team (select no)?', 
             choices: ['Yes', 'No'],
         }
-    ]).then(employeeInformation => {
-        const {position, name, id, email, school, github, addAnotherEmployee} = employeeInformation; //we need to set this information within this segment
+    ]).then(employeeInformation => { // After the user enter all the information, set employeeInformation equal to the information inputted
+        const {position, name, id, email, school, github, addAnotherEmployee} = employeeInformation; 
 
+        // Create newEmployee for the new employee's information
         var newEmployee;
 
+        // If the position selected is Intern, then it will take the information related to the intern (name, id, email, school) and sets the newEmployee object using the Intern class 
         if (position === 'Intern') {
             newEmployee = new Intern (name, id, email, school);
-            teamMembers.push(newEmployee); //adds this object to the array of team members
+            // Adds this object to the array of team members
+            teamMembers.push(newEmployee); 
         }
 
+        // If the position selected is Engineer, then it will take the information related to the engineer (name, id, email, github) and sets the newEmployee object using the Engineer class 
         if (position === 'Engineer') {
             newEmployee = new Engineer (name, id, email, github);
-            teamMembers.push(newEmployee); //adds this object to the array of team members
+            // Adds this object to the array of team members
+            teamMembers.push(newEmployee); 
         }
 
+        // If they user selected yes to adding another employee, then it will rerun addNewEmployee using teamMembers as its input (so it contains the just-newly-entered employee's information as well). If they don't want to add another employee, it will return the teamMembers array 
         if (addAnotherEmployee === 'Yes') {
-            return addNewEmployee(teamMembers); //why do we need to do addNewEmployee(teamMembers);
+            return addNewEmployee(teamMembers); 
         } else {
             return teamMembers;
         }
     })
 };
 
+// writeToFile takes in 'data' and uses fs.writeFile to add 'data' to the team.html file. The input, 'data', will eventually be the full HTML with the cards etc.
 const writeToFile = data => {
     fs.writeFile('./dist/team.html', data, (err) =>
          err ? console.error(err) : console.log('Success! Your team profile has been generated'));
 };
 
+// Run addManager(), then run addNewEmployee, then run generateHTML with teamMembers (array of team members) as its input, then writeToFile with the pageHTML as its input (the result of generateHTML). 
 addManager()
     .then(addNewEmployee)
     .then(teamMembers => {
         return generateHTML(teamMembers);
     })
-    .then(pageHTML => { //inside of this is whatever the product of generateHTML would be
+    .then(pageHTML => { 
         return writeToFile(pageHTML);
     })
-    //handle with errors
+    .catch(err => {
+        console.log(err);
+    });

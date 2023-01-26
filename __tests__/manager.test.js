@@ -1,4 +1,7 @@
+// Link to Manager class
 const Manager = require("../lib/manager");
+
+// Below are a number of tests for each of the Manager class' purposes/uses. Instead of adding comments, please reference the string to understand each test's purpose (for example, 'Can set id', 'Can retrieve manager id', etc. ). The main difference for manager is that it also asks for the office number while the others don't
 
 test('Can create manager class', () => {
     const manager = new Manager();
@@ -8,13 +11,13 @@ test('Can create manager class', () => {
 test('Can set name on manager class', () => {
     const name = 'Michael';
     const manager = new Manager(name);
-    expect(manager.name).toBe(name); //we want the name that we put in to be the same that is output
+    expect(manager.name).toBe(name); 
 })
 
 test('Can set id on manager class', () => {
     const name = 'Michael';
     const id = '1';
-    const manager = new Manager(name, id); //we keep name in here so we build on it
+    const manager = new Manager(name, id); 
     expect(manager.id).toBe(id); 
 })
 

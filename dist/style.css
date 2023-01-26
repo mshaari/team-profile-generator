@@ -1,3 +1,4 @@
-.card {
-    
+/* Add h1 styling for a background color (most styling already comes from bootstrap*/
+h1 {
+    background-color: aliceblue;
 }

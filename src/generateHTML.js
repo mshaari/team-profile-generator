@@ -1,3 +1,4 @@
+// Function generateManager makes a bootstrap-style card for the manager by referencing their name, role, id, email, and officeNumber
 const generateManager = manager => {
     return `
         <div class="card col-3 m-2 p-0">
@@ -14,6 +15,7 @@ const generateManager = manager => {
     `
 }
 
+// Function generateEngineer makes a bootstrap-style card for an engineer by referencing their name, role, id, email, and GitHub
 const generateEngineer = engineer => {
     return `
         <div class="card col-3 m-2 p-0">
@@ -30,6 +32,7 @@ const generateEngineer = engineer => {
     `
 }
 
+// Function generateIntern makes a bootstrap-style card for an intern by referencing their name, role, id, email, and school
 const generateIntern = intern => {
     return `
         <div class="card col-3 m-2 p-0">
@@ -46,40 +49,7 @@ const generateIntern = intern => {
     `
 }
 
-//Within this, we cycle through the data we get from the user input and we use the above functions to generate cards for managers, engineers, and interns, and then add those cards to an array
-generateMemberCards = (data) => {
-    var arrayOfCards = [];
-
-    for (var i=0; i < data.length; i++) {
-        const employeeInfo = data[i];
-        const employeeRole = employeeInfo.getRole(); //call the method that we made 
-
-        //If the employee is manager, then make manager card
-        if (employeeRole === 'Manager') {
-            const managerHTMLCard = generateManager(employeeInfo);
-
-            arrayOfCards.push(managerHTMLCard);
-        }
-
-        //If the employee is engineer, then make engineer card
-        if (employeeRole === 'Engineer') {
-            const engineerHTMLCard = generateEngineer(employeeInfo);
-
-            arrayOfCards.push(engineerHTMLCard);
-        }
-
-        //If the employee is intern, then make intern card
-        if (employeeRole === 'Intern') {
-            const internHTMLCard = generateIntern(employeeInfo);
-
-            arrayOfCards.push(internHTMLCard);
-        }
-    }
-
-    return generateTeamHTML((arrayOfCards.join('')));
-}
-
-//Since we have several cards, we want to create an array that contains each separate HTML 
+// generateTeamHTML is what will actually create the HTML for the team.html file using teamMemberCards as an input (as we will see below, this input is going to be an array of cards' HTML), so all the cards will populate 
 const generateTeamHTML = teamMemberCards => {
     return `
         <!DOCTYPE html>
@@ -112,6 +82,48 @@ const generateTeamHTML = teamMemberCards => {
         ></script>
         </html>
     `
+}
+
+// generateMemberCards executes with "data" as its input and it is what actually makes an array of all the HTML needed for the employee cards. Within this, we cycle through the data we get from the user input and we use the above functions (generateManager, generateEngineer, generateIntern) to generate HTML for cards for managers, engineers, and interns, and then add that HTML to an array
+generateMemberCards = (data) => {
+    // Declare an empty array of cards
+    var arrayOfCards = [];
+
+    // For loop iterates the number of times as employees inputted
+    for (var i=0; i < data.length; i++) {
+        // Sets employeeInfo to the [i]th position of the array of data
+        const employeeInfo = data[i];
+        
+        // Sets employeeRole to the role of the [i]th position/person using the getRole() method
+        const employeeRole = employeeInfo.getRole();  
+
+        // If the employee is manager, then make manager card using the generateManager function we created above
+        if (employeeRole === 'Manager') {
+            const managerHTMLCard = generateManager(employeeInfo);
+
+            // Adds that HTML to the arrayOfCards
+            arrayOfCards.push(managerHTMLCard);
+        }
+
+        // If the employee is engineer, then make engineer card using the generateEngineer function we created above
+        if (employeeRole === 'Engineer') {
+            const engineerHTMLCard = generateEngineer(employeeInfo);
+
+            // Adds that HTML to the arrayOfCards
+            arrayOfCards.push(engineerHTMLCard);
+        }
+
+        // If the employee is intern, then make intern card using the generateIntern function we created above
+        if (employeeRole === 'Intern') {
+            const internHTMLCard = generateIntern(employeeInfo);
+
+            // Adds that HTML to the arrayOfCards           
+            arrayOfCards.push(internHTMLCard);
+        }
+    }
+
+    // Uses the generateTeamHTML function to generate the full HTML for the team.html page using the arrayOfCards (which now contains all the HTML for the cards of every single employee)
+    return generateTeamHTML((arrayOfCards.join('')));
 }
 
 module.exports = generateMemberCards;
