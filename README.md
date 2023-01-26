@@ -18,7 +18,7 @@
   To install the Team Profile Generator, download the repository from GitHub and open in Visual Studio Code. Run npm install and make sure inquirer is installed. 
 
   ## Usage
-  To invoke the Team Profile Generator, open index.js in an integrated terminal, run node index.js, answer all required questions, then a team.html file will be generated/updated. To view a tutorial on how to use this application, please visit this video.
+  To invoke the Team Profile Generator, open index.js in an integrated terminal, run node index.js, answer all required questions, then a team.html file will be generated/updated. To view a tutorial on how to use this application, please visit [this video](https://drive.google.com/file/d/1wL-8Ga8nelfnmiN2iiQ17893DU6ze1mr/view).
 
   ## Contributing
   Please do not contribute to this application.
