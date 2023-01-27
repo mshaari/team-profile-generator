@@ -9,7 +9,6 @@ const Intern = require('./lib/intern.js')
 
 // Import generateHTML to create page
 const generateHTML = require('./src/generateHTML.js');
-const { default: generate } = require('@babel/generator'); //WHAT IS THIS?? IT WAS AUTOMATICALLY ADDED
 
 // Declare an empty array for the team members
 const teamMembers = [];
